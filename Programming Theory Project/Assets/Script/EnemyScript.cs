@@ -3,36 +3,27 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : CombatUnit
 {
-
-    //Fait avancer l'enemie vers la base du joueur
-    public void MoveFwd(float speed, Rigidbody rb)
+    [SerializeField] private int mvtSpeed = 5;
+    private Rigidbody enyRb;
+    public bool canMove = true;
+    void Start()
     {
-        rb.transform.Translate(Vector3.forward * -speed * Time.deltaTime);
+        enyRb = GetComponent<Rigidbody>();
     }
-
-    //script d'attaque de l'ennemie sur une unité de défence
-    public void Attack(GameObject attackGo, int attackValue, float rate)
+        void Update()
     {
-        StartCoroutine(AttackNum(attackGo, attackValue, rate));
-    }
-
-    //Arrêt de l'attaque
-    public void StopAttack()
-    {
-        StopAllCoroutines();
-    }
-
-    //Coroutine d'attaque
-    IEnumerator AttackNum(GameObject attackGo, int attackValue, float rate)
-    {
-        while (true)
+        //Déplacement de l'ennemie si il n'est pas au contact d'une unité de défence
+        if (canMove)
         {
-            attackGo.GetComponent<DefenceObjet>().RecievedDammage(attackValue, gameObject);
-            yield return new WaitForSeconds(rate);
+            MoveFwd();
         }
+    }
+        //Fait avancer l'enemie vers la base du joueur
+    public void MoveFwd()
+    {
+        enyRb.transform.Translate(Vector3.forward * -mvtSpeed * Time.deltaTime);
     }
 }
