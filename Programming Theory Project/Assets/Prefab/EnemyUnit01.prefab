@@ -151,5 +151,10 @@ MonoBehaviour:
   life: 5
   attackValue: 1
   attackRate: 1
+  blocObject: {fileID: 0}
+  attackObject: {fileID: 0}
   mvtSpeed: 5
   canMove: 1
+  onMvt: 1
+  inCombat: 0
+  coinValue: 10

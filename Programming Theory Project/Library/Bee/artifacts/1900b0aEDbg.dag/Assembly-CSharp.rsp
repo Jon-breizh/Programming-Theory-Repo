@@ -359,6 +359,7 @@
 "Assets/Script/CombatUnit.cs"
 "Assets/Script/DefenceUnit.cs"
 "Assets/Script/EnemyScript.cs"
+"Assets/Script/GameManager.cs"
 "Assets/Script/GameUI.cs"
 "Assets/Script/Projectile.cs"
 "Assets/Script/SpawnManager.cs"

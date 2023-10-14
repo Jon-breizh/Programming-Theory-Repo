@@ -9,6 +9,8 @@ public class EnemyScript : CombatUnit
     [SerializeField] private int mvtSpeed = 5;
     private Rigidbody enyRb;
     public bool canMove = true, onMvt = true, inCombat = false;
+    public int coinValue;
+
     void Start()
     {
         enyRb = GetComponent<Rigidbody>();

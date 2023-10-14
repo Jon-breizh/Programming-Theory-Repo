@@ -122,6 +122,11 @@ MonoBehaviour:
   life: 10
   attackValue: 4
   attackRate: 1
+  blocObject: {fileID: 0}
+  target: {fileID: 0}
+  fireRate: 1
+  hasAmmo: 1
+  ammo: {fileID: 9106491477012761927, guid: 5855fae6da7ea9845b015e6d74d7549b, type: 3}
 --- !u!54 &7133472482553672302
 Rigidbody:
   m_ObjectHideFlags: 0
