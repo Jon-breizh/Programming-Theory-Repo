@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class DefenceUnit : CombatUnit
 {
+    [SerializeField] private float fireRate;
+    [SerializeField] private bool hasAmmo = false;
+    [SerializeField] GameObject ammo;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (hasAmmo)
+        {
+            InvokeRepeating("FireAmmo", 1.0f, fireRate);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FireAmmo()
     {
-        
+        Vector3 ammoPosition = gameObject.transform.position;
+        Quaternion ammoRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        Instantiate(ammo, ammoPosition, ammoRotation);
     }
 }

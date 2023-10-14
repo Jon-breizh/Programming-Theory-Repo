@@ -8,15 +8,16 @@ public class EnemyScript : CombatUnit
 {
     [SerializeField] private int mvtSpeed = 5;
     private Rigidbody enyRb;
-    public bool canMove = true;
+    public bool canMove = true, onMvt = true, inCombat = false;
     void Start()
     {
         enyRb = GetComponent<Rigidbody>();
+
     }
         void Update()
     {
         //Déplacement de l'ennemie si il n'est pas au contact d'une unité de défence
-        if (canMove)
+        if ((!inCombat && canMove) || blocObject == null)
         {
             MoveFwd();
         }
@@ -26,4 +27,5 @@ public class EnemyScript : CombatUnit
     {
         enyRb.transform.Translate(Vector3.forward * -mvtSpeed * Time.deltaTime);
     }
+
 }
