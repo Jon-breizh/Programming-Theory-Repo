@@ -127,6 +127,7 @@ MonoBehaviour:
   fireRate: 0.8
   hasAmmo: 1
   ammo: {fileID: 9106491477012761927, guid: 5855fae6da7ea9845b015e6d74d7549b, type: 3}
+  costValue: 30
 --- !u!54 &2267625924294429898
 Rigidbody:
   m_ObjectHideFlags: 0

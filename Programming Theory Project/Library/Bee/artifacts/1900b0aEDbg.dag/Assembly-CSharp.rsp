@@ -361,6 +361,7 @@
 "Assets/Script/EnemyScript.cs"
 "Assets/Script/GameManager.cs"
 "Assets/Script/GameUI.cs"
+"Assets/Script/MenuUIHandler.cs"
 "Assets/Script/Projectile.cs"
 "Assets/Script/SpawnManager.cs"
 -langversion:9.0

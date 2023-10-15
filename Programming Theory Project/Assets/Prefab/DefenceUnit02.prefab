@@ -124,9 +124,10 @@ MonoBehaviour:
   attackRate: 1
   blocObject: {fileID: 0}
   target: {fileID: 0}
-  fireRate: 1
+  fireRate: 1.5
   hasAmmo: 1
-  ammo: {fileID: 9106491477012761927, guid: 5855fae6da7ea9845b015e6d74d7549b, type: 3}
+  ammo: {fileID: 5120459429684026969, guid: dafbad1e2487aff4e95a6c37c52ac5d1, type: 3}
+  costValue: 50
 --- !u!54 &7133472482553672302
 Rigidbody:
   m_ObjectHideFlags: 0

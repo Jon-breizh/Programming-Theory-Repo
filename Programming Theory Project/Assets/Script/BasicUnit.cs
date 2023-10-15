@@ -9,10 +9,10 @@ public class BasicUnit : MonoBehaviour
 {
     [SerializeField] private float life;
 
-    GameManager gameManagerScript;
+     GameUI gameUI;
      private void Start()
     {
-        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameUI = GameObject.Find("CanvasGameUI").GetComponent<GameUI>();
     }
 
     //Fonction de gestion des dégâts
@@ -22,13 +22,13 @@ public class BasicUnit : MonoBehaviour
         life -= dammageValue;
         if (gameObject.CompareTag("Player"))
         {
-            gameManagerScript.LifeUpdate(life / 60);
+            gameUI.UpdateUI(life / 60);
         }
         if (life <= 0)
         {
             if (gameObject.CompareTag("enemy"))
             {
-                GameObject.Find("GameManager").GetComponent<GameManager>().playerMoney += gameObject.GetComponent<EnemyScript>().coinValue;
+                GameManager.Instance.playerMoney += gameObject.GetComponent<EnemyScript>().coinValue;
             }
             else
             {

@@ -1,29 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
-    int playerXP;
-    int playerLvl = 1;
-    public int playerMoney = 0;
-    [SerializeField] GameObject[] enemyPrefab;
-    [SerializeField] GameObject[] frienlyPrefab;
+    public static GameManager Instance;
 
-    GameUI gameUI;
-    // Start is called before the first frame update
-    void Start()
+    public int playerXP;
+    public int playerLvl = 1;
+    public int playerMoney = 0;
+    public GameObject[] enemyPrefab;
+    public GameObject[] frienlyPrefab;
+
+    private void Awake()
     {
-        gameUI = GameObject.Find("Canvas").GetComponent<GameUI>();
-        gameUI.UpdateUI(playerMoney, playerLvl);
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);   
+        
+        LoadData();
     }
-    private void Update()
+
+    [Serializable]
+    class PlayerData
     {
-        gameUI.UpdateUI(playerMoney, playerLvl);
+        public int playerLvl;
+        public int playerMoney;
     }
-    public void LifeUpdate(float life)
+
+    public void SaveData()
     {
-        gameUI.UpdateUI(life);
+        PlayerData data = new PlayerData();
+        data.playerLvl = playerLvl;
+        data.playerMoney = playerMoney;
+
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+
+    public void LoadData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            String json = File.ReadAllText(path);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+            playerLvl = data.playerLvl;
+            playerMoney = data.playerMoney;
+        }
     }
 }

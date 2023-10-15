@@ -7,6 +7,8 @@ public class DefenceUnit : CombatUnit
     [SerializeField] private float fireRate;
     [SerializeField] private bool hasAmmo = false;
     [SerializeField] GameObject ammo;
+
+    public int costValue;
     // Start is called before the first frame update
     void Start()
     {
