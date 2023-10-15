@@ -10,11 +10,28 @@ public class GameUI : MonoBehaviour
     private TextMeshProUGUI levelTxt, coin;
     private Slider lifeSlider;
 
+    public Transform AssetContainer;
+    public GameObject buttonTypeFriendly;
+
     void Start()
     {
         levelTxt = GameObject.Find("LevelText").GetComponent<TextMeshProUGUI>();
         coin = GameObject.Find("coinTxt").GetComponent<TextMeshProUGUI>();
         lifeSlider = GameObject.Find("LifeSlider").GetComponent <Slider>();
+
+        GameObject[] FriendlyUnit = GameManager.Instance.frienlyPrefab;
+
+        for(int i = 0; i < GameManager.Instance.playerLvl; i++)
+        {
+            GameObject unitButton = Instantiate(buttonTypeFriendly, AssetContainer);
+            Image unitImage = unitButton.GetComponent<Image>();
+            TextMeshProUGUI costText = unitButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            int cost = FriendlyUnit[i].GetComponent<DefenceUnit>().costValue;
+            Debug.Log(cost);
+            unitImage.sprite = FriendlyUnit[i].GetComponent<DefenceUnit>().image;
+            costText.text = FriendlyUnit[i].GetComponent<DefenceUnit>().costValue.ToString();
+        }
     }
 
     private void Update()

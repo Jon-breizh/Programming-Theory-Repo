@@ -9,6 +9,7 @@ public class DefenceUnit : CombatUnit
     [SerializeField] GameObject ammo;
 
     public int costValue;
+    public Sprite image;
     // Start is called before the first frame update
     void Start()
     {

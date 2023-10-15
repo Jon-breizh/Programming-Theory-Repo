@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerXP: 0
-  playerLvl: 1
+  playerLvl: 2
   playerMoney: 100
   enemyPrefab:
   - {fileID: 8870341243076661184, guid: 2d56c98b2f16cc24fb0956c7d5dfac3b, type: 3}
