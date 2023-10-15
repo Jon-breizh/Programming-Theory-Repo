@@ -8,6 +8,7 @@ TagManager:
   - defenceUnit
   - enemy
   - projectile
+  - UIAsset
   layers:
   - Default
   - TransparentFX

@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);   
         
         LoadData();
+        playerLvl = 2;
+        playerMoney = 0;
     }
 
     [Serializable]
