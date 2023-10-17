@@ -57,4 +57,11 @@ public class GameManager : MonoBehaviour
             playerMoney = data.playerMoney;
         }
     }
+
+    public void BuyUnit(GameObject unit, GameObject spawnSpot)
+    {
+        playerMoney -= unit.GetComponent<DefenceUnit>().costValue;
+        Vector3 spawnPosit = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y, spawnSpot.transform.position.z + 1);
+        Instantiate(unit, spawnPosit, Quaternion.identity);
+    }
 }

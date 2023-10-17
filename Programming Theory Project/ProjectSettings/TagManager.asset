@@ -9,6 +9,7 @@ TagManager:
   - enemy
   - projectile
   - UIAsset
+  - spot
   layers:
   - Default
   - TransparentFX

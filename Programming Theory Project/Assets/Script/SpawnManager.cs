@@ -10,12 +10,19 @@ public class SpawnManager : MonoBehaviour
     public int spawnNumber = 10;
     [SerializeField] GameObject[] enemiToSpawn;
 
+    public GameObject[] spawnSpot;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //InvokeRepeating("SpawnEnemy", 2, SpawnRate);
         StartCoroutine(SpawnXTime(spawnNumber));
+
+        //find all spawnSpot in the sceen and hide them
+        spawnSpot = GameObject.FindGameObjectsWithTag("spot");
+        HideSpot();
+        
     }
     void SpawnEnemy()
     {
@@ -48,5 +55,22 @@ public class SpawnManager : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Destroy(other.gameObject);
+    }
+
+    public void ShowAvailableSpot()
+    {
+        foreach (GameObject spawnspot in spawnSpot)
+        {
+
+        }
+    }
+
+    public void HideSpot()
+    {
+        foreach(GameObject spawnspot in spawnSpot)
+        {
+            spawnspot.GetComponent<Renderer>().enabled = false;
+            spawnspot.GetComponentInChildren<Light>().enabled = false;
+        }
     }
 }
