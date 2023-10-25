@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -7,28 +8,21 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private float SpawnRate;
     public int numberOfLigne = 1;
-    public int spawnNumber = 10;
-    [SerializeField] GameObject[] enemiToSpawn;
-
-    public GameObject[] spawnSpot;
-
-
-    // Start is called before the first frame update
-    void Start()
+    //[SerializeField] GameObject[] enemiToSpawn;
+    private int numberOfEnemyType;
+    private void Start()
     {
-        //InvokeRepeating("SpawnEnemy", 2, SpawnRate);
-        StartCoroutine(SpawnXTime(spawnNumber));
-
-        //find all spawnSpot in the sceen and hide them
-        spawnSpot = GameObject.FindGameObjectsWithTag("spot");
-        HideSpot();
-        
+        numberOfEnemyType = GameManager.Instance.playerLvl;
+        //lance la coroutine d'apparistion des enemies
+        StartCoroutine(SpawnXTime(LevelManager.instance.enemyNumber));
     }
+    //FAit apparaitre les enemy
     void SpawnEnemy()
     {
-        int enemyRange = Random.Range(0, enemiToSpawn.Length);
-        Instantiate(enemiToSpawn[enemyRange], SpawnPosition(), Quaternion.identity);
+        int enemyRange = Random.Range(0, numberOfEnemyType);
+        Instantiate(LevelManager.instance.enemyPrefab[enemyRange], SpawnPosition(), Quaternion.identity);
     }
+    //Retourne la position ou faire apparaitre les enemy de facon aléatoire
     private Vector3 SpawnPosition()
     {
         if (numberOfLigne == 1) 
@@ -42,6 +36,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    //Gére le timeRate d'apparition des enemy
     IEnumerator SpawnXTime(int spawnNumber)
     {
         while (spawnNumber > 0)
@@ -51,26 +46,9 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(SpawnRate);
         }
     }
-
+    // Détruit les munitions quand elles sortent de la scene
     private void OnTriggerExit(Collider other)
     {
         Destroy(other.gameObject);
-    }
-
-    public void ShowAvailableSpot()
-    {
-        foreach (GameObject spawnspot in spawnSpot)
-        {
-
-        }
-    }
-
-    public void HideSpot()
-    {
-        foreach(GameObject spawnspot in spawnSpot)
-        {
-            spawnspot.GetComponent<Renderer>().enabled = false;
-            spawnspot.GetComponentInChildren<Light>().enabled = false;
-        }
     }
 }

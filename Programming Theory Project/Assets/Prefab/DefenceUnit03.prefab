@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2864269835430865742}
   - component: {fileID: 8465815164306635174}
   - component: {fileID: 1912457328255423114}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefenceUnit03
   m_TagString: defenceUnit
   m_Icon: {fileID: 0}

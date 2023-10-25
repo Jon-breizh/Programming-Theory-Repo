@@ -4,31 +4,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //permet de rendre accessible GameManager dans les autres scenes
     public static GameManager Instance;
 
     public int playerXP;
-    public int playerLvl = 1;
-    public int playerMoney = 0;
-    public GameObject[] enemyPrefab;
-    public GameObject[] frienlyPrefab;
+    public int playerLvl;
+    public int playerMoney;
 
+    //Object à instantier
+    public GameObject unitToSpawn;
     private void Awake()
     {
+        //permet de rendre accessible GameManager dans les autres scenes
+        Debug.Log(Instance);
         if (Instance != null)
         {
             Destroy(gameObject);
+            Debug.Log("Detruit le nouveau");
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);   
-        
+        DontDestroyOnLoad(gameObject);
         LoadData();
-        playerLvl = 2;
-        playerMoney = 0;
+        Debug.Log("lvl : " + playerLvl + "money : " + playerMoney);
     }
 
+    private void Start()
+    {
+        //recharge les données de la partie précédente
+        //LoadData();
+    }
+
+    //Classe pour la sauvegarde de donné
     [Serializable]
     class PlayerData
     {
@@ -36,6 +46,7 @@ public class GameManager : MonoBehaviour
         public int playerMoney;
     }
 
+    //fonction de sauvegarde des données
     public void SaveData()
     {
         PlayerData data = new PlayerData();
@@ -46,6 +57,7 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
+    //Fonction de chargement des données
     public void LoadData()
     {
         string path = Application.persistentDataPath + "/savefile.json";
@@ -56,12 +68,28 @@ public class GameManager : MonoBehaviour
             playerLvl = data.playerLvl;
             playerMoney = data.playerMoney;
         }
+        else
+        {
+            playerLvl = 1;
+            playerMoney = 40;
+        }
     }
-
-    public void BuyUnit(GameObject unit, GameObject spawnSpot)
+    //Charge le niveau suivant
+    public void loadNextLevel()
     {
-        playerMoney -= unit.GetComponent<DefenceUnit>().costValue;
-        Vector3 spawnPosit = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y, spawnSpot.transform.position.z + 1);
-        Instantiate(unit, spawnPosit, Quaternion.identity);
+        playerLvl++;
+        SaveData();
+        int currentSceneName = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneName);
+        Time.timeScale = 1;
+
+    }
+    public void WinningGame()
+    {
+        playerLvl = 1;
+        playerMoney = 50;
+        SaveData();
+        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }
 }

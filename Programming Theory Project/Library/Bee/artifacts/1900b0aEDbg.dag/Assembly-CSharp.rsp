@@ -355,6 +355,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -analyzer:"D:/Logiciels/Unity/Unity Hub/Editor/2022.3.9f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Logiciels/Unity/Unity Hub/Editor/2022.3.9f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
+"Assets/Script/AsserButton.cs"
 "Assets/Script/BasicUnit.cs"
 "Assets/Script/CombatUnit.cs"
 "Assets/Script/DefenceUnit.cs"
@@ -364,6 +365,8 @@
 "Assets/Script/MenuUIHandler.cs"
 "Assets/Script/Projectile.cs"
 "Assets/Script/SpawnManager.cs"
+"Assets/Script/SpawnPoint.cs"
+"Assets/Script/TestScript.cs"
 -langversion:9.0
 
 /deterministic

@@ -9,9 +9,11 @@ public class BasicUnit : MonoBehaviour
 {
     [SerializeField] private float life;
 
-     GameUI gameUI;
-     private void Start()
+    GameUI gameUI;
+    LevelManager levelManager;
+    private void Start()
     {
+        levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
         gameUI = GameObject.Find("CanvasGameUI").GetComponent<GameUI>();
     }
 
@@ -35,8 +37,16 @@ public class BasicUnit : MonoBehaviour
                 enemy.GetComponent<EnemyScript>().inCombat = false;
                 enemy.GetComponent<EnemyScript>().canMove = true;
             }
+            if (gameObject.CompareTag("enemy"))
+            {
+                LevelManager.instance.enyKill();
+            }
             Destroy(gameObject);
-            
         }
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("C'est clické");
     }
 }
