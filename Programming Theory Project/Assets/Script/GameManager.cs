@@ -20,22 +20,13 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //permet de rendre accessible GameManager dans les autres scenes
-        Debug.Log(Instance);
         if (Instance != null)
         {
             Destroy(gameObject);
-            Debug.Log("Detruit le nouveau");
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
         LoadData();
-        Debug.Log("lvl : " + playerLvl + "money : " + playerMoney);
-    }
-
-    private void Start()
-    {
-        //recharge les données de la partie précédente
-        //LoadData();
     }
 
     //Classe pour la sauvegarde de donné

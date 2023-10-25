@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     //Gestion de la partie gagné
     public int enemyNumber, ennemyKilled;
-    public GameObject WinScreen, WinGameScreen;
+    public GameObject WinScreen, WinGameScreen, LooseGameScreen;
 
     // Prefab des ennemies et amis du level
     public GameObject[] frienlyPrefab;
@@ -52,7 +52,6 @@ public class LevelManager : MonoBehaviour
             if (availableSpawnPoints != null)
             {
                 spawnspot.GetComponent<Renderer>().enabled = true;
-                spawnspot.GetComponentInChildren<Light>().enabled = true;
             }
         }
         return availableSpawnPoints.Count;
@@ -64,7 +63,6 @@ public class LevelManager : MonoBehaviour
         foreach (GameObject spawnspot in spawnSpot)
         {
             spawnspot.GetComponent<Renderer>().enabled = false;
-            spawnspot.GetComponentInChildren<Light>().enabled = false;
         }
     }
 
@@ -72,7 +70,7 @@ public class LevelManager : MonoBehaviour
     public void BuyUnit(GameObject spawnSpot)
     {
         GameManager.Instance.playerMoney -= GameManager.Instance.unitToSpawn.GetComponent<DefenceUnit>().costValue;
-        Vector3 spawnPosit = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y + 1, spawnSpot.transform.position.z);
+        Vector3 spawnPosit = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y, spawnSpot.transform.position.z);
         Instantiate(GameManager.Instance.unitToSpawn, spawnPosit, Quaternion.identity);
         GameManager.Instance.unitToSpawn = null;
         HideSpot();

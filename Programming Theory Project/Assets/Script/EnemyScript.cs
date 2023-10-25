@@ -11,9 +11,12 @@ public class EnemyScript : CombatUnit
     public bool canMove = true, onMvt = true, inCombat = false;
     public int coinValue;
 
+   // private Animator animatorEny;
+
     void Start()
     {
         enyRb = GetComponent<Rigidbody>();
+       // animatorEny = GetComponent<Animator>();
 
     }
         void Update()
@@ -22,12 +25,17 @@ public class EnemyScript : CombatUnit
         if ((!inCombat && canMove) || blocObject == null)
         {
             MoveFwd();
+          //  animatorEny.SetBool("IsRunning", true);
+        }
+        else
+        {
+         //   animatorEny.SetBool("IsRunning", false);
         }
     }
         //Fait avancer l'enemie vers la base du joueur
     public void MoveFwd()
     {
-        enyRb.transform.Translate(Vector3.forward * -mvtSpeed * Time.deltaTime);
+        enyRb.transform.Translate(Vector3.forward * mvtSpeed * Time.deltaTime);
     }
 
 }

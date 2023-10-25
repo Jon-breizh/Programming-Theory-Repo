@@ -41,12 +41,12 @@ public class BasicUnit : MonoBehaviour
             {
                 LevelManager.instance.enyKill();
             }
+            if (gameObject.CompareTag("Player"))
+            {
+                LevelManager.instance.LooseGameScreen.SetActive(true);
+                Time.timeScale = 0;
+            }
             Destroy(gameObject);
         }
-    }
-
-    private void OnMouseDown()
-    {
-        Debug.Log("C'est clické");
     }
 }

@@ -25,7 +25,6 @@ public class GameUI : MonoBehaviour
         //Creer le menu de sélection des unités amis
         for(int i = 0; i < GameManager.Instance.playerLvl; i++)
         {
-            Debug.Log(LevelManager.instance.frienlyPrefab.Length);
             GameObject unitButton = Instantiate(buttonTypeFriendly, AssetContainer);
             Image unitImage = unitButton.GetComponent<Image>();
             TextMeshProUGUI costText = unitButton.GetComponentInChildren<TextMeshProUGUI>();
@@ -95,7 +94,6 @@ public class GameUI : MonoBehaviour
         GameManager.Instance.unitToSpawn = activeAsset;
         if(numberOfSpot == 0) 
         { 
-            Debug.Log("no spawn point avalaible");
             GameManager.Instance.unitToSpawn = null;
         }
     }

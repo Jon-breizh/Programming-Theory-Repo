@@ -335,6 +335,8 @@
 -r:"Library/Bee/artifacts/2000b0aEDbg.dag/UnityEngine.UI.ref.dll"
 -analyzer:"D:/Logiciels/Unity/Unity Hub/Editor/2022.3.9f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Logiciels/Unity/Unity Hub/Editor/2022.3.9f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
+"Assets/Quirky Series Ultimate/_Scripts/QuirkySeriesDemo.cs"
+"Assets/Quirky Series Ultimate/_Scripts/RotateOnScroll.cs"
 "Assets/Script/AsserButton.cs"
 "Assets/Script/BasicUnit.cs"
 "Assets/Script/CombatUnit.cs"

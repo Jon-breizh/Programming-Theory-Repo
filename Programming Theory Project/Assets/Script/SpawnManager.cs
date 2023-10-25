@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     void SpawnEnemy()
     {
         int enemyRange = Random.Range(0, numberOfEnemyType);
-        Instantiate(LevelManager.instance.enemyPrefab[enemyRange], SpawnPosition(), Quaternion.identity);
+        Instantiate(LevelManager.instance.enemyPrefab[enemyRange], SpawnPosition(), Quaternion.Euler(new Vector3(0, 180, 0)));
     }
     //Retourne la position ou faire apparaitre les enemy de facon aléatoire
     private Vector3 SpawnPosition()
@@ -32,7 +32,7 @@ public class SpawnManager : MonoBehaviour
         else
         {
             int xPos = Random.Range(-numberOfLigne+1, numberOfLigne);
-            return new Vector3(xPos*5, 1, 0);
+            return new Vector3(xPos*5, 0, 10);
         }
     }
 

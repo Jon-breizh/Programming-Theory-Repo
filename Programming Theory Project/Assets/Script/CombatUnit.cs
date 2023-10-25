@@ -9,6 +9,12 @@ public class CombatUnit : BasicUnit
     [SerializeField] private float attackRate; // Taux d'attaque (combien de temps entre chaque attaque)
     public GameObject blocObject, target; // Objets de blocage et d'attaque
 
+    //public Animator animator;
+
+    private void Start()
+    {
+       //animator = gameObject.GetComponent<Animator>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         // Vérifie si l'objet en collision est un mur, une unité de défense ou un ennemi
@@ -20,12 +26,14 @@ public class CombatUnit : BasicUnit
                 // Effectue une attaque sur l'objet en collision
                 Attack(other.gameObject);
                 target = other.gameObject;
+                //animator.SetTrigger("Attack");
 
                 // Si cet objet est un ennemi, active le mode "en combat" et mémorise l'objet de blocage
                 if (gameObject.CompareTag("enemy"))
                 {
                     gameObject.GetComponent<EnemyScript>().inCombat = true;
                     blocObject = other.gameObject;
+                 //   animator.SetTrigger("Attack");
                 }
             }
 
@@ -36,18 +44,21 @@ public class CombatUnit : BasicUnit
                 if (blocObject == null)
                 {
                     blocObject = other.gameObject;
+                    //animator.SetTrigger("Stop");
                 }
 
                 // Si l'ennemi en collision est déjà en combat, empêche ce mouvement
                 if (other.GetComponent<EnemyScript>().inCombat)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
+                    //animator.SetTrigger("Stop");
                 }
 
                 // Si l'ennemi en collision ne peut pas se déplacer, empêche ce mouvement
                 if (!other.GetComponent<EnemyScript>().canMove)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
+                    //animator.SetTrigger("Stop");
                 }
             }
         }

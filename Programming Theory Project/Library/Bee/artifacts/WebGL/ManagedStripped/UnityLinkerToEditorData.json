@@ -5,14 +5,29 @@
         "name": "Animation",
         "dependencies": [
           {
+            "name": "AnimationClip",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
             "name": "Animator",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
           {
             "name": "AnimatorController",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
             "dependencyType": 1,
             "icon": null
           },
@@ -20,6 +35,21 @@
             "name": "AnimatorOverrideController",
             "scenes": [],
             "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "Avatar",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
+            "name": "Motion",
+            "scenes": [],
+            "dependencyType": 1,
             "icon": null
           },
           {
@@ -227,7 +257,8 @@
           {
             "name": "Mesh",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -235,7 +266,8 @@
           {
             "name": "MeshFilter",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -243,7 +275,8 @@
           {
             "name": "MeshRenderer",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -366,6 +399,15 @@
             "name": "ShaderNameRegistry",
             "scenes": [],
             "dependencyType": 1,
+            "icon": null
+          },
+          {
+            "name": "SkinnedMeshRenderer",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
+            "dependencyType": 0,
             "icon": null
           },
           {
@@ -574,7 +616,8 @@
           {
             "name": "BoxCollider",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -582,7 +625,8 @@
           {
             "name": "CapsuleCollider",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -610,7 +654,8 @@
           {
             "name": "Rigidbody",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
@@ -618,7 +663,8 @@
           {
             "name": "SphereCollider",
             "scenes": [
-              "Assets/Scenes/SampleScene.unity"
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
             ],
             "dependencyType": 0,
             "icon": null
