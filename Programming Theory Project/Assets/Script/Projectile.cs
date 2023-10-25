@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int dammage;
+    public int damage;
     [SerializeField] private int speed;
     private Rigidbody projectileRb;
-    // Start is called before the first frame update
+
+    // ABSTRACTION - A higher-level method to make the projectile move forward.
     void Start()
     {
         projectileRb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         projectileRb.transform.Translate(Vector3.up * speed * Time.deltaTime);

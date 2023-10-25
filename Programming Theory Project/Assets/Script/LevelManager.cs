@@ -6,83 +6,77 @@ using System.IO;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager instance;
-    // Variable pour la gestion des SpawPoints
-    public GameObject[] spawnSpot;
-    public LayerMask layerMask;
-    float checkRadius = 1.0f;
-    List<GameObject> availableSpawnPoints;
+    public static LevelManager instance;  // Singleton instance
 
-    //Gestion de la partie gagné
-    public int enemyNumber, ennemyKilled;
-    public GameObject WinScreen, WinGameScreen, LooseGameScreen;
+    // Variables for SpawnPoint management
+    public GameObject[] spawnSpot;  // Array of spawn points
+  
+    // Handling win conditions
+    public int enemyNumber, enemyKilled;  // Counters for enemies
+    public GameObject WinScreen, WinGameScreen, LoseGameScreen;  // UI screens for game outcomes
 
-    // Prefab des ennemies et amis du level
-    public GameObject[] frienlyPrefab;
+    // Prefabs for enemies and friendly units in the level
+    public GameObject[] friendlyPrefab;
     public GameObject[] enemyPrefab;
 
     private void Awake()
     {
-        instance = this;
-        HideSpot();
+        instance = this;  // Initialize the Singleton instance
+        HideSpot();  // Hide all spawn spots
 
-        //initialise le nobre d'ennemie à tuer en fonction du niveau
+        // Initialize the number of enemies to kill based on the level
         enemyNumber = GameManager.Instance.playerLvl * 10;
-        ennemyKilled = 0;
-    }
-    private void Start()
-    {
-         availableSpawnPoints = new List<GameObject>();
+        enemyKilled = 0;
     }
 
-    //Fait apparaitre les spots non occupés
+    // Show available SpawnPoints and return their count
+    // Demonstrates ABSTRACTION as it provides a higher-level method to interact with SpawnPoints.
     public int ShowAvailableSpot()
     {
-        foreach (GameObject spawnspot in spawnSpot)
+        int freeSpawnPointCount = 0;
+        foreach (GameObject go in spawnSpot)
         {
-            Collider[] colliders = Physics.OverlapSphere(spawnspot.transform.position, checkRadius, layerMask);
-
-            if (colliders.Length == 0)
+            if (go.GetComponent<SpawnPoint>().IsFree)
             {
-                availableSpawnPoints.Add(spawnspot);
+                freeSpawnPointCount++;
+                go.GetComponent<Renderer>().enabled = true;
+                go.GetComponent<Collider>().enabled = true;
             }
         }
-        foreach (GameObject spawnspot in availableSpawnPoints)
-        {
-            if (availableSpawnPoints != null)
-            {
-                spawnspot.GetComponent<Renderer>().enabled = true;
-            }
-        }
-        return availableSpawnPoints.Count;
+        return freeSpawnPointCount;
     }
 
-    //Cahche tout les spots
+    // Hide all SpawnPoints
+    // Demonstrates ABSTRACTION by abstracting the task of hiding SpawnPoints.
     public void HideSpot()
     {
-        foreach (GameObject spawnspot in spawnSpot)
+        foreach (GameObject spawnSpot in spawnSpot)
         {
-            spawnspot.GetComponent<Renderer>().enabled = false;
+            spawnSpot.GetComponent<Renderer>().enabled = false;
+            spawnSpot.GetComponent<Collider>().enabled = false;
         }
     }
 
-    //Achat d'une unitée
+    // Buy a Defense Unit
+    // Demonstrates ENCAPSULATION by interacting with DefenseUnit's costValue.
     public void BuyUnit(GameObject spawnSpot)
     {
-        GameManager.Instance.playerMoney -= GameManager.Instance.unitToSpawn.GetComponent<DefenceUnit>().costValue;
-        Vector3 spawnPosit = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y, spawnSpot.transform.position.z);
-        Instantiate(GameManager.Instance.unitToSpawn, spawnPosit, Quaternion.identity);
+        GameManager.Instance.playerMoney -= GameManager.Instance.unitToSpawn.GetComponent<DefenseUnit>().costValue;
+        Vector3 spawnPosition = new Vector3(spawnSpot.transform.position.x, spawnSpot.transform.position.y, spawnSpot.transform.position.z);
+        Instantiate(GameManager.Instance.unitToSpawn, spawnPosition, Quaternion.identity);
         GameManager.Instance.unitToSpawn = null;
+        spawnSpot.GetComponent<SpawnPoint>().IsFree = false;
         HideSpot();
     }
 
-    //Suit le nombre d'ennemie tué
-    //Lance l'écran partie de partie gagné quand tout les ennemies ont été tués
-    //Met le jeu en pause
-    public void enyKill()
+    // Track the number of enemy kills
+    // Launch the appropriate game outcome screen when all enemies are killed
+    // Pause the game
+    // Demonstrates POLYMORPHISM by overriding the same method for different outcomes.
+    public void EnemyKill()
     {
-        ennemyKilled++;
-        if (ennemyKilled >= enemyNumber)
+        enemyKilled++;
+        if (enemyKilled >= enemyNumber)
         {
             if (GameManager.Instance.playerLvl == 3)
             {

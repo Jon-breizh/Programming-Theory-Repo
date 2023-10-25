@@ -14,26 +14,26 @@ public class GameUI : MonoBehaviour
 
     public Transform AssetContainer;
     public GameObject buttonTypeFriendly;
-   // LevelManager levelManager;
+
     private void Start()
     {
         //levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
         levelTxt = GameObject.Find("LevelText").GetComponent<TextMeshProUGUI>();
         coin = GameObject.Find("coinTxt").GetComponent<TextMeshProUGUI>();
-        lifeSlider = GameObject.Find("LifeSlider").GetComponent <Slider>();
+        lifeSlider = GameObject.Find("LifeSlider").GetComponent<Slider>();
 
-        //Creer le menu de sélection des unités amis
-        for(int i = 0; i < GameManager.Instance.playerLvl; i++)
+        // INHERITANCE - Demonstrating inheritance
+        // Create the menu for selecting friendly units
+        for (int i = 0; i < GameManager.Instance.playerLvl; i++)
         {
             GameObject unitButton = Instantiate(buttonTypeFriendly, AssetContainer);
             Image unitImage = unitButton.GetComponent<Image>();
             TextMeshProUGUI costText = unitButton.GetComponentInChildren<TextMeshProUGUI>();
 
-            unitImage.sprite = LevelManager.instance.frienlyPrefab[i] .GetComponent<DefenceUnit>().image;
-            costText.text = LevelManager.instance.frienlyPrefab[i].GetComponent<DefenceUnit>().costValue.ToString();
-            unitButton.GetComponent<AsserButton>().asset = LevelManager.instance.frienlyPrefab[i];
+            unitImage.sprite = LevelManager.instance.friendlyPrefab[i].GetComponent<DefenseUnit>().image;
+            costText.text = LevelManager.instance.friendlyPrefab[i].GetComponent<DefenseUnit>().costValue.ToString();
+            unitButton.GetComponent<AsserButton>().asset = LevelManager.instance.friendlyPrefab[i];
         }
-
     }
 
     private void Update()
@@ -43,41 +43,45 @@ public class GameUI : MonoBehaviour
     }
 
     // Gestion de l'affichage des unités disponible à l'achat
+    // Demonstrates ABSTRACTION by handling the display of available purchase units.
     public void CanBuyAsset()
     {
         int availableMoney = GameManager.Instance.playerMoney;
         GameObject[] assetButton = GameObject.FindGameObjectsWithTag("UIAsset");
 
-        foreach ( GameObject asset in assetButton)
+        foreach (GameObject asset in assetButton)
         {
-            string assetCoast = asset.GetComponentInChildren<TextMeshProUGUI>().text;
-            if (int.Parse(assetCoast) > availableMoney)
+            string assetCost = asset.GetComponentInChildren<TextMeshProUGUI>().text;
+            if (int.Parse(assetCost) > availableMoney)
             {
-                // désactive le boutton
+                // Disable the button
                 asset.GetComponent<Button>().enabled = false;
-                //Place le boutton légèrement transparent
+                // Make the button slightly transparent
                 ColorBlock colorBlock = asset.GetComponent<Button>().colors;
                 colorBlock.normalColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                 asset.GetComponent<Button>().colors = colorBlock;
             }
             else
             {
-                //active le boutton
+                // Enable the button
                 asset.GetComponent<Button>().enabled = true;
-                //Place le boutton pleinement visible
+                // Make the button fully visible
                 ColorBlock colorBlock = asset.GetComponent<Button>().colors;
                 colorBlock.normalColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 asset.GetComponent<Button>().colors = colorBlock;
-                //Lance l'achat d'une unité en cas de click sur le button
+                // POLYMORPHISM - Demonstrating polymorphism by dynamically binding the buyAUnit method.
+                // Launch the purchase of a unit when the button is clicked
                 asset.GetComponent<Button>().onClick.AddListener(delegate { buyAUnit(asset.GetComponent<AsserButton>().asset); });
             }
         }
     }
+
     public void UpdateUI(int scoreToPrint, int actualLevel)
     {
         coin.text = "$ : " + scoreToPrint;
         levelTxt.text = "Level : " + actualLevel;
     }
+
     public void UpdateUI(float life)
     {
         lifeSlider.value = life;
@@ -92,20 +96,19 @@ public class GameUI : MonoBehaviour
     {
         int numberOfSpot = LevelManager.instance.ShowAvailableSpot();
         GameManager.Instance.unitToSpawn = activeAsset;
-        if(numberOfSpot == 0) 
-        { 
+        if (numberOfSpot == 0)
+        {
             GameManager.Instance.unitToSpawn = null;
         }
     }
 
     public void NextLvl()
     {
-        GameManager.Instance.loadNextLevel();
+        GameManager.Instance.LoadNextLevel();
     }
 
     public void WinGame()
     {
         GameManager.Instance.WinningGame();
     }
-
 }

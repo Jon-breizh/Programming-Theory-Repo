@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class EnemyScript : CombatUnit
 {
@@ -11,31 +9,24 @@ public class EnemyScript : CombatUnit
     public bool canMove = true, onMvt = true, inCombat = false;
     public int coinValue;
 
-   // private Animator animatorEny;
-
+    // INHERITANCE - Extends the properties and methods of the parent class (CombatUnit).
     void Start()
     {
         enyRb = GetComponent<Rigidbody>();
-       // animatorEny = GetComponent<Animator>();
-
     }
-        void Update()
+
+    void Update()
     {
-        //Déplacement de l'ennemie si il n'est pas au contact d'une unité de défence
+        // Movement of the enemy if it is not in contact with a defense unit.
         if ((!inCombat && canMove) || blocObject == null)
         {
-            MoveFwd();
-          //  animatorEny.SetBool("IsRunning", true);
-        }
-        else
-        {
-         //   animatorEny.SetBool("IsRunning", false);
+            MoveForward();
         }
     }
-        //Fait avancer l'enemie vers la base du joueur
-    public void MoveFwd()
+
+    // ABSTRACTION - A higher-level method to make the enemy move forward.
+    private void MoveForward()
     {
         enyRb.transform.Translate(Vector3.forward * mvtSpeed * Time.deltaTime);
     }
-
 }

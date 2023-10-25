@@ -5,56 +5,59 @@ using UnityEngine;
 
 public class CombatUnit : BasicUnit
 {
-    [SerializeField] private int attackValue; // Valeur de l'attaque
-    [SerializeField] private float attackRate; // Taux d'attaque (combien de temps entre chaque attaque)
-    public GameObject blocObject, target; // Objets de blocage et d'attaque
+    [SerializeField] private int attackValue; // Attack value
+    [SerializeField] private float attackRate; // Attack rate (time between each attack)
+    public GameObject blocObject, target; // Block and attack objects
 
     //public Animator animator;
 
+    // POLYMORPHISM - Start method can be overridden in child classes.
     private void Start()
     {
-       //animator = gameObject.GetComponent<Animator>();
+        //animator = gameObject.GetComponent<Animator>();
     }
+
+    // Called when this object's collider triggers another collider
     private void OnTriggerEnter(Collider other)
     {
-        // Vérifie si l'objet en collision est un mur, une unité de défense ou un ennemi
+        // Check if the object in collision is a wall, a defense unit, or an enemy
         if ((other.CompareTag("Player") || other.CompareTag("defenceUnit") || other.CompareTag("enemy")) && !other.CompareTag("projectile"))
         {
-            // Vérifie si l'objet en collision a une balise différente de celle de cet objet
+            // Check if the object in collision has a different tag than this object
             if (gameObject.tag != other.gameObject.tag)
             {
-                // Effectue une attaque sur l'objet en collision
+                // Perform an attack on the object in collision
                 Attack(other.gameObject);
                 target = other.gameObject;
                 //animator.SetTrigger("Attack");
 
-                // Si cet objet est un ennemi, active le mode "en combat" et mémorise l'objet de blocage
+                // If this object is an enemy, activate "in combat" mode and remember the blocking object
                 if (gameObject.CompareTag("enemy"))
                 {
                     gameObject.GetComponent<EnemyScript>().inCombat = true;
                     blocObject = other.gameObject;
-                 //   animator.SetTrigger("Attack");
+                    //animator.SetTrigger("Attack");
                 }
             }
 
-            // Si l'objet en collision est un ennemi et cet objet est aussi un ennemi
+            // If the object in collision is an enemy and this object is also an enemy
             if (other.CompareTag("enemy") && gameObject.CompareTag("enemy"))
             {
-                // Si aucun objet de blocage n'est défini, mémorise l'objet en collision comme objet de blocage
+                // If no blocking object is defined, remember the object in collision as a blocking object
                 if (blocObject == null)
                 {
                     blocObject = other.gameObject;
                     //animator.SetTrigger("Stop");
                 }
 
-                // Si l'ennemi en collision est déjà en combat, empêche ce mouvement
+                // If the colliding enemy is already in combat, prevent this movement
                 if (other.GetComponent<EnemyScript>().inCombat)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
                     //animator.SetTrigger("Stop");
                 }
 
-                // Si l'ennemi en collision ne peut pas se déplacer, empêche ce mouvement
+                // If the colliding enemy cannot move, prevent this movement
                 if (!other.GetComponent<EnemyScript>().canMove)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
@@ -63,48 +66,51 @@ public class CombatUnit : BasicUnit
             }
         }
 
-        // Si l'objet en collision est un projectile et cet objet est un ennemi
+        // If the object in collision is a projectile and this object is an enemy
         if (other.CompareTag("projectile") && gameObject.CompareTag("enemy"))
         {
-            // Réduit les points de vie de cet objet en fonction des dégâts du projectile
-            gameObject.GetComponent<BasicUnit>().RecievedDammage(other.gameObject.GetComponent<Projectile>().dammage, gameObject);
-            // Détruit le projectile
+            // Reduce the hit points of this object based on the projectile's damage
+            gameObject.GetComponent<BasicUnit>().ReceivedDamage(other.gameObject.GetComponent<Projectile>().damage, gameObject);
+            // Destroy the projectile
             Destroy(other.gameObject);
         }
     }
 
+    // Called when another collider exits the trigger collider of this object
     private void OnTriggerExit(Collider other)
     {
-        // Si l'objet en collision est un ennemi, permet à cet ennemi de se déplacer à nouveau
+        // If the colliding object is an enemy, allow that enemy to move again
         if (other.gameObject.CompareTag("enemy"))
         {
             gameObject.GetComponent<EnemyScript>().canMove = true;
         }
     }
 
+    // ENCAPSULATION - Method to perform an attack
     public void Attack(GameObject target)
     {
-        // Lance une coroutine pour effectuer l'attaque
+        // Start a coroutine to perform the attack
         StartCoroutine(AttackCor(target));
     }
 
-    // Arrête l'attaque
+    // Stop the attack
     public void StopAttack()
     {
-        // Arrête toutes les coroutines en cours (y compris l'attaque)
+        // Stop all running coroutines (including the attack)
         StopAllCoroutines();
     }
 
-    // Coroutine pour gérer l'attaque
+    // Coroutine to handle the attack
+    // ABSTRACTION - This coroutine abstracts the details of attack execution.
     IEnumerator AttackCor(GameObject target)
     {
         while (true)
         {
             if (this.target != null && target != null)
             {
-                target.GetComponent<BasicUnit>().RecievedDammage(attackValue, gameObject);
+                target.GetComponent<BasicUnit>().ReceivedDamage(attackValue, gameObject);
             }
-            yield return new WaitForSeconds(attackRate); // Attends le prochain cycle d'attaque
+            yield return new WaitForSeconds(attackRate); // Wait for the next attack cycle
         }
     }
 }

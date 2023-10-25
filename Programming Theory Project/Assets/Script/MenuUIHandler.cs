@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    // ABSTRACTION - A higher-level method to start a new game and load a scene.
     public void StartNewGame()
     {
         SceneManager.LoadScene(1);
     }
 
-    public void Exit() 
+    // ABSTRACTION - A higher-level method to exit the game.
+    public void Exit()
     {
 #if UNITY_EDITOR
-        EditorApplication.ExitPlaymode();
+        EditorApplication.ExitPlaymode(); // Exiting play mode in the Unity Editor.
 #else
-        Application.Quit(); // original code to quit Unity player
+        Application.Quit(); // Exiting the standalone player (build).
 #endif
     }
 }

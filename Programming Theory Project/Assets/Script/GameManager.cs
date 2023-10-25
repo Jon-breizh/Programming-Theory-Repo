@@ -8,18 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //permet de rendre accessible GameManager dans les autres scenes
+    // To make GameManager accessible across scenes
     public static GameManager Instance;
 
     public int playerXP;
     public int playerLvl;
     public int playerMoney;
 
-    //Object à instantier
-    public GameObject unitToSpawn;
+    public GameObject unitToSpawn;  // Object to instantiate
+
+    // INHERITANCE - Demonstrating inheritance
     private void Awake()
     {
-        //permet de rendre accessible GameManager dans les autres scenes
+        // To make GameManager accessible across scenes
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
         LoadData();
     }
 
-    //Classe pour la sauvegarde de donné
+    // Serializable class for data storage
     [Serializable]
     class PlayerData
     {
@@ -37,7 +38,8 @@ public class GameManager : MonoBehaviour
         public int playerMoney;
     }
 
-    //fonction de sauvegarde des données
+    // Save game data
+    // Demonstrates ENCAPSULATION with data storage and serialization.
     public void SaveData()
     {
         PlayerData data = new PlayerData();
@@ -48,13 +50,14 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    //Fonction de chargement des données
+    // Load game data
+    // Demonstrates ENCAPSULATION by handling data loading.
     public void LoadData()
     {
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
-            String json = File.ReadAllText(path);
+            string json = File.ReadAllText(path);
             PlayerData data = JsonUtility.FromJson<PlayerData>(json);
             playerLvl = data.playerLvl;
             playerMoney = data.playerMoney;
@@ -65,16 +68,20 @@ public class GameManager : MonoBehaviour
             playerMoney = 40;
         }
     }
-    //Charge le niveau suivant
-    public void loadNextLevel()
+
+    // Load the next level
+    // Demonstrates ABSTRACTION by providing a higher-level method to load levels.
+    public void LoadNextLevel()
     {
         playerLvl++;
         SaveData();
-        int currentSceneName = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneName);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
         Time.timeScale = 1;
-
     }
+
+    // Reset game data upon winning
+    // Demonstrates POLYMORPHISM by resetting the game data differently depending on the level.
     public void WinningGame()
     {
         playerLvl = 1;

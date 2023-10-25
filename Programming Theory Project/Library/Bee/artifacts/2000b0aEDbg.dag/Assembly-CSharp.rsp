@@ -340,7 +340,7 @@
 "Assets/Script/AsserButton.cs"
 "Assets/Script/BasicUnit.cs"
 "Assets/Script/CombatUnit.cs"
-"Assets/Script/DefenceUnit.cs"
+"Assets/Script/DefenseUnit.cs"
 "Assets/Script/EnemyScript.cs"
 "Assets/Script/GameManager.cs"
 "Assets/Script/GameUI.cs"
