@@ -74,7 +74,10 @@
           },
           {
             "name": "AudioClip",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
@@ -94,8 +97,20 @@
             "icon": null
           },
           {
+            "name": "AudioSource",
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
+            "dependencyType": 0,
+            "icon": null
+          },
+          {
             "name": "SampleClip",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/SampleScene.unity",
+              "Assets/Scenes/TitleScene.unity"
+            ],
             "dependencyType": 1,
             "icon": null
           }

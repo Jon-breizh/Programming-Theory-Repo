@@ -146,6 +146,10 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_Animator_ResetTriggerString();
 		Register_UnityEngine_Animator_ResetTriggerString();
 
+		//System.Void UnityEngine.Animator::SetBoolString(System.String,System.Boolean)
+		void Register_UnityEngine_Animator_SetBoolString();
+		Register_UnityEngine_Animator_SetBoolString();
+
 		//System.Void UnityEngine.Animator::SetTriggerString(System.String)
 		void Register_UnityEngine_Animator_SetTriggerString();
 		Register_UnityEngine_Animator_SetTriggerString();
@@ -191,6 +195,22 @@ void RegisterAllStrippedInternalCalls()
 		Register_UnityEngine_AsyncOperation_InternalDestroy();
 
 	//End Registrations for type : UnityEngine.AsyncOperation
+
+	//Start Registrations for type : UnityEngine.AudioSource
+
+		//System.Void UnityEngine.AudioSource::PlayHelper(UnityEngine.AudioSource,System.UInt64)
+		void Register_UnityEngine_AudioSource_PlayHelper();
+		Register_UnityEngine_AudioSource_PlayHelper();
+
+		//System.Void UnityEngine.AudioSource::PlayOneShotHelper(UnityEngine.AudioSource,UnityEngine.AudioClip,System.Single)
+		void Register_UnityEngine_AudioSource_PlayOneShotHelper();
+		Register_UnityEngine_AudioSource_PlayOneShotHelper();
+
+		//System.Void UnityEngine.AudioSource::set_volume(System.Single)
+		void Register_UnityEngine_AudioSource_set_volume();
+		Register_UnityEngine_AudioSource_set_volume();
+
+	//End Registrations for type : UnityEngine.AudioSource
 
 	//Start Registrations for type : UnityEngine.Behaviour
 
@@ -515,6 +535,14 @@ void RegisterAllStrippedInternalCalls()
 		Register_UnityEngine_CanvasRenderer_GetMaterial();
 
 	//End Registrations for type : UnityEngine.CanvasRenderer
+
+	//Start Registrations for type : UnityEngine.Collider
+
+		//System.Void UnityEngine.Collider::set_enabled(System.Boolean)
+		void Register_UnityEngine_Collider_set_enabled();
+		Register_UnityEngine_Collider_set_enabled();
+
+	//End Registrations for type : UnityEngine.Collider
 
 	//Start Registrations for type : UnityEngine.Component
 
@@ -1901,10 +1929,6 @@ void RegisterAllStrippedInternalCalls()
 		//UnityEngine.Collider UnityEngine.Physics::GetColliderByInstanceID(System.Int32)
 		void Register_UnityEngine_Physics_GetColliderByInstanceID();
 		Register_UnityEngine_Physics_GetColliderByInstanceID();
-
-		//UnityEngine.Collider[] UnityEngine.Physics::OverlapSphere_Internal_Injected(UnityEngine.PhysicsScene&,UnityEngine.Vector3&,System.Single,System.Int32,UnityEngine.QueryTriggerInteraction)
-		void Register_UnityEngine_Physics_OverlapSphere_Internal_Injected();
-		Register_UnityEngine_Physics_OverlapSphere_Internal_Injected();
 
 		//UnityEngine.Component UnityEngine.Physics::GetBodyByInstanceID(System.Int32)
 		void Register_UnityEngine_Physics_GetBodyByInstanceID();

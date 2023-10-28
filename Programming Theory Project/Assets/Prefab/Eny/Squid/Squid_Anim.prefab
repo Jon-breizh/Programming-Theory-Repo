@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e8c9c49c6d76d4892c22e0b9338178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 20
+  life: 6
   attackValue: 3
   attackRate: 2
   m_coinValue: 30
