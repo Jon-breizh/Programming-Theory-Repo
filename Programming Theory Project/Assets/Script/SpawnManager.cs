@@ -6,10 +6,9 @@ using UnityEngine.VFX;
 
 public class SpawnManager : MonoBehaviour
 {
+    // ENCAPSULATION - variable declaration
     [SerializeField] private float SpawnRate;
-    public int numberOfLanes = 2;
-    // INHERITANCE - Demonstrating inheritance
-    //[SerializeField] GameObject[] enemiToSpawn;
+    private int numberOfLanes = 2; // possibility to have more or less than 3 lines of enemy spawn
     private int numberOfEnemyTypes;
 
     private void Start()
@@ -20,8 +19,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Spawn enemies
-    // Demonstrates POLYMORPHISM - Different enemy types can be spawned.
-    void SpawnEnemy()
+     void SpawnEnemy()
     {
         int enemyRange = Random.Range(0, numberOfEnemyTypes);
         Instantiate(LevelManager.instance.enemyPrefab[enemyRange], SpawnPosition(), Quaternion.Euler(new Vector3(0, 180, 0)));
@@ -53,7 +51,6 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Destroy ammunition when it exits the scene
-    // Demonstrates ENCAPSULATION as the trigger exit behavior is encapsulated.
     private void OnTriggerExit(Collider other)
     {
         Destroy(other.gameObject);

@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// INHERITANCE : this class inherits from the BasicUnit class
 public class CombatUnit : BasicUnit
 {
+    // ENCAPSULATION - variable declaration
     [SerializeField] private int attackValue; // Attack value
     [SerializeField] private float attackRate; // Attack rate (time between each attack)
-    public GameObject blocObject, target; // Block and attack objects
-
-    //public Animator animator;
-
-    // POLYMORPHISM - Start method can be overridden in child classes.
-    private void Start()
-    {
-        //animator = gameObject.GetComponent<Animator>();
-    }
+    private GameObject target; //attack objects
+    public GameObject blocObject { get; private set; } // Block and attack objects
+    
 
     // Called when this object's collider triggers another collider
     private void OnTriggerEnter(Collider other)
@@ -35,8 +31,9 @@ public class CombatUnit : BasicUnit
                 if (gameObject.CompareTag("enemy"))
                 {
                     gameObject.GetComponent<EnemyScript>().inCombat = true;
+                    gameObject.GetComponent<Animator>().SetBool("IsRunning", false);
+                    gameObject.GetComponent<Animator>().SetTrigger("Attack");
                     blocObject = other.gameObject;
-                    //animator.SetTrigger("Attack");
                 }
             }
 
@@ -47,21 +44,22 @@ public class CombatUnit : BasicUnit
                 if (blocObject == null)
                 {
                     blocObject = other.gameObject;
-                    //animator.SetTrigger("Stop");
                 }
 
                 // If the colliding enemy is already in combat, prevent this movement
                 if (other.GetComponent<EnemyScript>().inCombat)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
-                    //animator.SetTrigger("Stop");
+                    gameObject.GetComponent<Animator>().SetBool("IsRunning", false);
+                    gameObject.GetComponent<Animator>().SetTrigger("Stop");
                 }
 
                 // If the colliding enemy cannot move, prevent this movement
                 if (!other.GetComponent<EnemyScript>().canMove)
                 {
                     gameObject.GetComponent<EnemyScript>().canMove = false;
-                    //animator.SetTrigger("Stop");
+                    gameObject.GetComponent<Animator>().SetBool("IsRunning", false);
+                    gameObject.GetComponent<Animator>().SetTrigger("Stop");
                 }
             }
         }
@@ -71,6 +69,8 @@ public class CombatUnit : BasicUnit
         {
             // Reduce the hit points of this object based on the projectile's damage
             gameObject.GetComponent<BasicUnit>().ReceivedDamage(other.gameObject.GetComponent<Projectile>().damage, gameObject);
+            //Play the hit sound
+            gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<EnemyScript>().hitSound);
             // Destroy the projectile
             Destroy(other.gameObject);
         }
@@ -83,10 +83,10 @@ public class CombatUnit : BasicUnit
         if (other.gameObject.CompareTag("enemy"))
         {
             gameObject.GetComponent<EnemyScript>().canMove = true;
+            gameObject.GetComponent<Animator>().SetBool("IsRunning", true);
         }
     }
 
-    // ENCAPSULATION - Method to perform an attack
     public void Attack(GameObject target)
     {
         // Start a coroutine to perform the attack
@@ -101,7 +101,7 @@ public class CombatUnit : BasicUnit
     }
 
     // Coroutine to handle the attack
-    // ABSTRACTION - This coroutine abstracts the details of attack execution.
+    // ABSTRACTION : This coroutine abstracts the details of attack execution.
     IEnumerator AttackCor(GameObject target)
     {
         while (true)
@@ -109,6 +109,10 @@ public class CombatUnit : BasicUnit
             if (this.target != null && target != null)
             {
                 target.GetComponent<BasicUnit>().ReceivedDamage(attackValue, gameObject);
+                if (gameObject.CompareTag("enemy"))
+                {
+                    gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<EnemyScript>().attackSound);
+                }
             }
             yield return new WaitForSeconds(attackRate); // Wait for the next attack cycle
         }

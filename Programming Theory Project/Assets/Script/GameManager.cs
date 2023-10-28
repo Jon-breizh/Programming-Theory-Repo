@@ -11,13 +11,12 @@ public class GameManager : MonoBehaviour
     // To make GameManager accessible across scenes
     public static GameManager Instance;
 
-    public int playerXP;
-    public int playerLvl;
+    // ENCAPSULATION - variable declaration    
+    public int playerLvl { get; private set; }
     public int playerMoney;
-
+    public float effectVolumeValue = 0.5f, mainVolumeValue = 0.2f;
     public GameObject unitToSpawn;  // Object to instantiate
 
-    // INHERITANCE - Demonstrating inheritance
     private void Awake()
     {
         // To make GameManager accessible across scenes
@@ -39,7 +38,6 @@ public class GameManager : MonoBehaviour
     }
 
     // Save game data
-    // Demonstrates ENCAPSULATION with data storage and serialization.
     public void SaveData()
     {
         PlayerData data = new PlayerData();
@@ -51,7 +49,6 @@ public class GameManager : MonoBehaviour
     }
 
     // Load game data
-    // Demonstrates ENCAPSULATION by handling data loading.
     public void LoadData()
     {
         string path = Application.persistentDataPath + "/savefile.json";
@@ -70,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Load the next level
-    // Demonstrates ABSTRACTION by providing a higher-level method to load levels.
+    // ABSTRACTION : by providing a higher-level method to load levels.
     public void LoadNextLevel()
     {
         playerLvl++;
@@ -81,7 +78,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Reset game data upon winning
-    // Demonstrates POLYMORPHISM by resetting the game data differently depending on the level.
+    // POLYMORPHISM : by resetting the game data differently depending on the level.
     public void WinningGame()
     {
         playerLvl = 1;

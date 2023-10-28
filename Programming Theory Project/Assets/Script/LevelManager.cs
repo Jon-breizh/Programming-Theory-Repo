@@ -6,18 +6,23 @@ using System.IO;
 
 public class LevelManager : MonoBehaviour
 {
+    // ENCAPSULATION - variable declaration
     public static LevelManager instance;  // Singleton instance
 
     // Variables for SpawnPoint management
-    public GameObject[] spawnSpot;  // Array of spawn points
-  
+    [SerializeField] private GameObject[] spawnSpot;  // Array of spawn points
+
     // Handling win conditions
-    public int enemyNumber, enemyKilled;  // Counters for enemies
+    public int enemyNumber { get; private set; } // ENCAPSULATION
+    private int enemyKilled;
     public GameObject WinScreen, WinGameScreen, LoseGameScreen;  // UI screens for game outcomes
 
     // Prefabs for enemies and friendly units in the level
     public GameObject[] friendlyPrefab;
     public GameObject[] enemyPrefab;
+
+    //Sound Management
+    private AudioSource audioLevel;
 
     private void Awake()
     {
@@ -27,6 +32,8 @@ public class LevelManager : MonoBehaviour
         // Initialize the number of enemies to kill based on the level
         enemyNumber = GameManager.Instance.playerLvl * 10;
         enemyKilled = 0;
+        audioLevel = gameObject.GetComponent<AudioSource>();
+        audioLevel.volume = GameManager.Instance.mainVolumeValue;
     }
 
     // Show available SpawnPoints and return their count

@@ -9,11 +9,12 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    // ENCAPSULATION - variable declaration
     private TextMeshProUGUI levelTxt, coin;
     private Slider lifeSlider;
 
-    public Transform AssetContainer;
-    public GameObject buttonTypeFriendly;
+    [SerializeField] private Transform AssetContainer;
+    [SerializeField] private GameObject buttonTypeFriendly;
 
     private void Start()
     {
@@ -76,12 +77,13 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    //POLYMORPHISM - UpdateUI Methode
     public void UpdateUI(int scoreToPrint, int actualLevel)
     {
         coin.text = "$ : " + scoreToPrint;
         levelTxt.text = "Level : " + actualLevel;
     }
-
+    //POLYMORPHISM - UpdateUI Methode
     public void UpdateUI(float life)
     {
         lifeSlider.value = life;

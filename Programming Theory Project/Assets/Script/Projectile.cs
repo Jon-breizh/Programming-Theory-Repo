@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public int damage;
+    // ENCAPSULATION - variable declaration
+
+    [SerializeField] private int m_damage;
+    public int damage 
+    {
+        get {return m_damage; } 
+        set { m_damage = value; } 
+    }
     [SerializeField] private int speed;
     private Rigidbody projectileRb;
 
-    // ABSTRACTION - A higher-level method to make the projectile move forward.
     void Start()
     {
         projectileRb = GetComponent<Rigidbody>();
